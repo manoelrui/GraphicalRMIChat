@@ -59,9 +59,10 @@ public class ChatClientImp extends UnicastRemoteObject implements ChatClient {
         Registry clientRegistry;        
         String serverAddress = ChatServerImp.SERVER_ADDRESS;
         String serverPort = Integer.toString(ChatServerImp.SERVER_PORT);
-        int portCont = 1000;
-        boolean tryToConnect = true;
+        int portCont = 1090;
         String clientPort = String.valueOf(portCont);
+        boolean tryToConnect = true;
+
         while(tryToConnect){
             try {
             // Create the registry and bind the name and object
@@ -69,7 +70,7 @@ public class ChatClientImp extends UnicastRemoteObject implements ChatClient {
             clientRegistry.rebind("[" + clientNickName + "]" + clientHost + ":" + clientPort, getInstance(clientHost,clientNickName, clientView));
             tryToConnect = false;
             } catch (RemoteException e) {
-                e.printStackTrace();
+                //e.printStackTrace();
                 portCont++;
                 clientPort = String.valueOf(portCont);
             }
