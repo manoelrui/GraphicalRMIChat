@@ -64,16 +64,35 @@ public class ChatServerImp extends UnicastRemoteObject implements ChatServer {
 
     @Override
     public void registryClient(RegistryMessage rMessage) {
-        // TODO: Check client replications
-        clientRegistries.add(rMessage);
-        
-        serverView.sendMessage("Number of clients: " + clientRegistries.size() + "\n");
-        serverView.sendMessage("Nickname: " + rMessage.nickName + " - Host: " + rMessage.host + " - Port: " + rMessage.port + "\n");
-        String newClientAlert = rMessage.nickName + " entered in the chat.";
-        try {
-            sendMessageToServer(new ChatMessage(messageCounter, CHAT_SERVER_NAME, newClientAlert));
-        } catch (RemoteException e) {
-            e.printStackTrace();
+        // Check for client replications
+        boolean existNickname = false;
+        for(RegistryMessage client : clientRegistries) {
+            if(client.nickName.toUpperCase() == rMessage.nickName.toUpperCase()
+                    || client.nickName.toUpperCase().equals(rMessage.nickName.toUpperCase())) {
+                existNickname = true;
+                break;
+            }
+        }
+
+        if(existNickname) {
+            ChatClient tempClient;
+            tempClient = rMessage.chatClient;
+            try {
+                tempClient.receiveMessageFromServer(new ChatMessage(messageCounter, CHAT_SERVER_NAME, "Esse nickname já existe !!!"));
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        } else {
+            clientRegistries.add(rMessage);
+
+            serverView.sendMessage("Number of clients: " + clientRegistries.size() + "\n");
+            serverView.sendMessage("Nickname: " + rMessage.nickName + " - Host: " + rMessage.host + " - Port: " + rMessage.port + "\n");
+            String newClientAlert = rMessage.nickName + " entered in the chat.";
+            try {
+                sendMessageToServer(new ChatMessage(messageCounter, CHAT_SERVER_NAME, newClientAlert));
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         }
     }
 

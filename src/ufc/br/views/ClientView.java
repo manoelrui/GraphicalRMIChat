@@ -102,6 +102,7 @@ public class ClientView extends javax.swing.JFrame{
                 try {
                     if(Server.getText()!=null && Server.getText().toString().length()>0&& User.getText().toString().length()>0 && User.getText()!=null){
                        chatClientImp = ChatClientImp.getInstance(Inet4Address.getLocalHost().getHostAddress().toString(), User.getText(), getInstance());
+                        chatClientImp.clientNickName = User.getText();
                        if(!chatClientImp.start()){
                            ChatBox.append("It is not possible to connect to the server!\n");
                        }

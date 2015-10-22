@@ -19,11 +19,11 @@ import ufc.br.views.ClientView;
  */
 public class ChatClientImp extends UnicastRemoteObject implements ChatClient {
 
-    private String clientHost;
-    private String clientNickName;
-    private static ChatClientImp chatClientImp;
-    private ChatServer chatServerImp;
-    private ClientView clientView;
+    public String clientHost;
+    public String clientNickName;
+    public static ChatClientImp chatClientImp;
+    public ChatServer chatServerImp;
+    public ClientView clientView;
     
     public static ChatClientImp getInstance(String clientHost, String clientNickName, ClientView clientView) throws RemoteException{
         if(chatClientImp==null){
