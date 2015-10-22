@@ -80,10 +80,8 @@ public class ChatServerImp extends UnicastRemoteObject implements ChatServer {
     @Override
     public void sendMessageToServer(ChatMessage chatMessage) throws RemoteException {
 
-        // TODO: to create a callback to this behaviour.
         updateAliveClients();
 
-        // TODO: to create a callback to this behaviour.
         alertClients();
 
         for(RegistryMessage clientMessage : clientRegistries) {
