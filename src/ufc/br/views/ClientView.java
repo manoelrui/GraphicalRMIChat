@@ -53,17 +53,11 @@ public class ClientView extends javax.swing.JFrame{
             JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     private JButton Send = new JButton("Send");
     private JButton Start = new JButton("Connect");
+    private JButton Disconnect = new JButton("Disconnect");
     private JTextField Server=new JTextField(20);
     private JLabel myLabel=new JLabel("Server*:");
-    private JLabel fill=new JLabel("");
-
     private JLabel myNameLabel=new JLabel("User Name*:");
-
-
     private JTextField User=new JTextField(20);
-    private String ServerName;
-    private String UserName;
-    
     private ChatClientImp chatClientImp;
     private static ClientView instance;
      
@@ -82,7 +76,7 @@ public class ClientView extends javax.swing.JFrame{
     public ClientView() {
         setResizable(false);
         setTitle("Client");
-        setSize(560,400);
+        setSize(560, 400);
         Container cp=getContentPane();
         cp.setLayout(new FlowLayout());
         cp.add(new JLabel("Chat History"));
@@ -95,9 +89,10 @@ public class ClientView extends javax.swing.JFrame{
         cp.add(myNameLabel);
         cp.add(User);
         cp.add(Start);
+        cp.add(Disconnect);
         Send.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(chatClientImp!=null) {
+                if (chatClientImp != null) {
                     chatClientImp.sendMessage(UserText.getText());
                 }
             }
@@ -120,6 +115,14 @@ public class ClientView extends javax.swing.JFrame{
                 }
             }
         });
+
+        Disconnect.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);         
     }
