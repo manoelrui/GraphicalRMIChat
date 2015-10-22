@@ -79,7 +79,7 @@ public class ChatClientImp extends UnicastRemoteObject implements ChatClient {
         try {
             serverRegistry = LocateRegistry.getRegistry(serverAddress, (new Integer(serverPort)).intValue());
             chatServerImp = (ChatServer) serverRegistry.lookup(ChatServerImp.CHAT_SERVER_NAME);
-            chatServerImp.registryClient(new RegistryMessage(clientHost, clientPort, clientNickName));
+            chatServerImp.registryClient(new RegistryMessage(clientHost, clientPort, clientNickName, this));
         } catch (Exception e) {
             e.printStackTrace();
             return false;

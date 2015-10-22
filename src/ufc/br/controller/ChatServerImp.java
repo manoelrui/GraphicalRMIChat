@@ -160,10 +160,9 @@ public class ChatServerImp extends UnicastRemoteObject implements ChatServer {
         serverView.sendMessage("[" +ft.format(now) +"] "+CHAT_SERVER_NAME +": " +text + "\n");
         for (RegistryMessage clientToAlertMessage : clientRegistries) {
                     try {
-                        Registry clientRegistry;
+                        // run client callback
                         ChatClient tempClient;
-                        clientRegistry = LocateRegistry.getRegistry(clientToAlertMessage.host, (new Integer(clientToAlertMessage.port)).intValue());
-                        tempClient = (ChatClient) clientRegistry.lookup("[" + clientToAlertMessage.nickName + "]" + clientToAlertMessage.host + ":" + clientToAlertMessage.port);
+                        tempClient = clientToAlertMessage.chatClient;
                         tempClient.receiveMessageFromServer(new ChatMessage(messageCounter, CHAT_SERVER_NAME, text));
                         messageCounter++;
                     } catch (ConnectException e) {
@@ -173,6 +172,4 @@ public class ChatServerImp extends UnicastRemoteObject implements ChatServer {
                     }
        }
     }
-   
-
 }
