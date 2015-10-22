@@ -92,7 +92,8 @@ public class ServerView extends javax.swing.JFrame {
         });
         Close.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-               dispose();
+                dispose();
+                System.exit(0);
             }
         });
        
